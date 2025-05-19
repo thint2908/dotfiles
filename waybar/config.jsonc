@@ -1,0 +1,60 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 16,
+  "modules-left": ["sway/workspaces", "sway/mode"],
+  "modules-center": ["sway/window", "clock"],
+  "modules-right": ["pulseaudio", "network",  "bluetooth", "custom/battery", "custom/power"],
+  "sway/mode": {
+    "format": "{}",
+    "format-map": {
+      "default": "",
+      "resize": "<span style='color:#ff5555'>RESIZE</span>",
+      "move": "<span style='color:#f1fa8c'>MOVE</span>"
+    }
+  },
+  "sway/workspaces": {
+    "disable-scroll": true,
+    "all-outputs": true,
+    "format": "{name}"
+  },
+  "sway/window": {
+    "format": "{}",
+    "on-click": "swaymsg kill"
+  },
+
+  "clock": {
+    "format": "{:%A %H:%M}",
+    "tooltip-format": "{:%Y-%m-%d %H:%M:%S}"
+  },
+
+  "custom/battery": {
+    "exec": "~/.config/waybar/scripts/battery.sh",
+    "interval": 1,
+    "tooltip": false
+  },
+
+  "network": {
+    "format-wifi": " {essid}",
+    "format-ethernet": "󰈀 {ifname}",
+    "format-disconnected": "⚠",
+    "on-click": "nm-connection-editor",
+    "tooltip": true
+  },
+
+  "pulseaudio": {
+    "format": "󰕾 {volume}%",
+    "on-click": "pavucontrol"
+  },
+
+  "bluetooth": {
+    "format": "󰂯 {status}",
+    "on-click": "blueman-manager"
+  },
+
+  "custom/power": {
+    "format": "⏻",
+    "on-click": "~/.config/waybar/scripts/powermenu.sh",
+    "tooltip": false
+  }
+}
