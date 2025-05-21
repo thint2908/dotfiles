@@ -7,5 +7,5 @@ MAX_VOLUME=120
 CURRENT_VOLUME=$(pactl get-sink-volume @DEFAULT_SINK@ | grep -oP '\d+(?=%)' | head -1)
 
 if [ "$CURRENT_VOLUME" -lt "$MAX_VOLUME" ]; then
-  pactl set-sink-volume @DEFAULT_SINK@ +5%
+  pactl set-sink-volume @DEFAULT_SINK@ +1%
 fi

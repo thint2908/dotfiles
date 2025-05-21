@@ -1,0 +1,62 @@
+* {
+  font: "JetBrainsMono Nerd Font 13";
+  text-color: #cdd6f4;
+  background-color: transparent;
+  border-radius: 10px;
+}
+
+window {
+  location: northeast;
+  anchor: northeast;
+  width: 8%;
+  border: 2px;
+  border-color: #313244;
+  background-color: #1e1e2e;
+  padding: 10px;
+  transparency: "enabled";
+  click-to-close: true;
+}
+
+mainbox {
+  children: [ listview ];
+  background-color: #1e1e2e;
+  border-radius: 12px;
+  spacing: 10px;
+}
+
+listview {
+  background-color: transparent;
+  lines: 4;
+  spacing: 10px;
+  fixed-height: true;
+  scrollbar: false;
+}
+
+element {
+  background-color: #313244;
+  text-color: #cdd6f4;
+  border: 0px;
+  border-radius: 8px;
+  padding: 6px 12px;
+}
+
+element selected {
+  background-color: #f38ba8;
+  text-color: #1e1e2e;
+}
+
+element normal {
+  background-color: #313244;
+  text-color: #cdd6f4;
+}
+
+element alternate {
+  background-color: #313244;
+  text-color: #cdd6f4;
+}
+
+inputbar {
+  enabled: false;
+  visible: false;
+  background-color: transparent;
+}

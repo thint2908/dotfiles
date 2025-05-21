@@ -21,9 +21,25 @@ set $term alacritty
 # on the original workspace that the command was run on.
 set $menu dmenu_path | dmenu | xargs swaymsg exec --
 
+### exec 
+
 exec waybar
+exec fcitx5
+exec nm-applet --indicator
+exec blueman-applet
+
+exec mkfifo /tmp/wobpipe && tail -f /tmp/wobpipe | wob
+
+## suspend after 15m no active
+exec swayidle -w \
+  timeout 900 'swaylock -f && systemctl suspend' \
+  before-sleep 'swaylock -f'
+
 
 include /etc/sway/config-vars.d/*
+
+#focus follow cursor
+focus_follows_mouse no
 
 #default
 default_border none
@@ -32,7 +48,7 @@ default_floating_border none
 titlebar_padding 1
 titlebar_border_thickness 0
 smart_borders on
-gaps inner 0
+gaps inner 1
 gaps outer 0
 
 ### Output configuration
@@ -81,12 +97,15 @@ input "2:7:SynPS/2_Synaptics_TouchPad" {
     scroll_method two_finger
     drag enabled
     tap_button_map lrm
+    pointer_accel 0.6
   }
 
 ### Key bindings
 #
 bindsym Mod1+space exec ~/.config/sway/scripts/applauncher.sh
 
+# open menu power
+bindsym $mod+Mod1+l exec ~/.config/rofi/powermenu/powermenu.sh
 
 # Basics:
 #
@@ -97,7 +116,7 @@ bindsym Mod1+space exec ~/.config/sway/scripts/applauncher.sh
     bindsym $mod+Shift+q kill
 
     # Start your launcher
-    bindsym $mod+d exec $menu
+    # bindsym $mod+d exec $menu
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.

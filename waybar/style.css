@@ -28,7 +28,7 @@ window#waybar {
   color: #1e1e2e;
 }
 
-#clock, #custom-battery, #network, #pulseaudio, #bluetooth, #custom-clipboard, #custom-power, #window {
+#clock, #custom-battery, #network,#backlight, #pulseaudio, #custom-bluetooth, #custom-clipboard, #custom-power, #window {
   margin: 0 2px;
   background: #313244;
   color: #cdd6f4;

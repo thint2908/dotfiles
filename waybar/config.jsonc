@@ -2,9 +2,10 @@
   "layer": "top",
   "position": "top",
   "height": 16,
+  "reload_style_on_change": true,
   "modules-left": ["sway/workspaces", "sway/mode"],
   "modules-center": ["sway/window", "clock"],
-  "modules-right": ["pulseaudio", "network",  "bluetooth", "custom/battery", "custom/power"],
+  "modules-right": ["backlight", "pulseaudio", "network",  "custom/bluetooth", "custom/battery", "custom/power"],
   "sway/mode": {
     "format": "{}",
     "format-map": {
@@ -35,26 +36,67 @@
   },
 
   "network": {
-    "format-wifi": " {essid}",
+    "format-wifi": "󰖩 {essid}",
     "format-ethernet": "󰈀 {ifname}",
     "format-disconnected": "⚠",
+    "format-icons": [""],
     "on-click": "nm-connection-editor",
-    "tooltip": true
+    "tooltip": true,
+    "tooltip-format": "{essid} ({ipaddr})",
+    "interval": 1
   },
 
+  // "pulseaudio": {
+  //   "format": "{icon} {volume}%",
+  //   "format-muted": " Mute",
+  //   "format-icons": ["", "", ""],
+  //   "on-click": "~/.config/rofi/volume-menu/volume-menu.sh",
+  //   "on-scroll-up": "~/.config/sway/scripts/volume.sh",
+  //   "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -1%",
+  //   "tooltip": true,
+  //   "tooltip-format": "Volume: {volume}%"
+  // },
+  // "backlight": {
+  //   "format": "{icon}{percent}%",
+  //   "format-icons": ["󰃛", "󰃜", "󰃞", "󰃟", "󰃠"],
+  //   "on-click": "~/.config/rofi/backlight/backlight-menu.sh",
+  //   "on-scroll-up": "brightnessctl set +1%",
+  //   "on-scroll-down": "brightnessctl set 1%-",
+  //   "tooltip": true,
+  //   "tooltip-format": "Brightness: {percent}%"
+  // },
   "pulseaudio": {
-    "format": "󰕾 {volume}%",
-    "on-click": "pavucontrol"
+    "format": "{volume}% {icon}",
+    "format-muted": " Mute",
+    "format-icons": ["", "", ""],
+    "on-click": "~/.config/rofi/volume-menu/volume-menu.sh",
+    "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +1% && pactl get-sink-volume @DEFAULT_SINK@ | grep -oP '\\d+(?=%)' | head -1 > /tmp/wobpipe",
+    "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -1% && pactl get-sink-volume @DEFAULT_SINK@ | grep -oP '\\d+(?=%)' | head -1 > /tmp/wobpipe",
+    "tooltip": true,
+    "tooltip-format": "Volume: {volume}%"
   },
-
-  "bluetooth": {
-    "format": "󰂯 {status}",
-    "on-click": "blueman-manager"
+  "backlight": {
+    "format": "{icon}{percent}%",
+    "format-icons": ["󰃛", "󰃜", "󰃞", "󰃟", "󰃠"],
+    "on-click": "~/.config/rofi/backlight/backlight-menu.sh",
+    "on-scroll-up": "brightnessctl set +5% && brightnessctl | grep -oP '\\(\\K[0-9]+(?=%)' > /tmp/wobpipe",
+    "on-scroll-down": "brightnessctl set 5%- && brightnessctl | grep -oP '\\(\\K[0-9]+(?=%)' > /tmp/wobpipe",
+    "tooltip": true,
+    "tooltip-format": "Brightness: {percent}%"
+  },
+  "custom/bluetooth": {
+    "format": "{icon} Bluetooth",
+    "format-icons": [""],
+    "exec": "bluetoothctl show | grep Powered | awk '{print $2}' | xargs -I {} echo '{\"text\": \"Bluetooth\", \"tooltip\": \"Bluetooth: {}\"}'",
+    "return-type": "json",
+    "tooltip": true,
+    "tooltip-format": "Bluetooth: {status}",
+    "on-click": "~/.config/rofi/bluetooth-menu/bluetooth-menu.sh"
   },
 
   "custom/power": {
     "format": "⏻",
-    "on-click": "~/.config/waybar/scripts/powermenu.sh",
+    "on-click": "~/.config/rofi/powermenu/powermenu.sh",
     "tooltip": false
   }
 }
