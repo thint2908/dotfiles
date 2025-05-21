@@ -107,6 +107,12 @@ bindsym Mod1+space exec ~/.config/sway/scripts/applauncher.sh
 # open menu power
 bindsym $mod+Mod1+l exec ~/.config/rofi/powermenu/powermenu.sh
 
+# screenshot config
+bindsym Alt_R+Print exec grim ~/Pictures/screenshot-$(date +%F-%T).png
+bindsym Shift+Print exec grim -g "$(slurp)" ~/Pictures/screenshot-$(date +%F-%T).png
+
+
+
 # Basics:
 #
     # Start a terminal
